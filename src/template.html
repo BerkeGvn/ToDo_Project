@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/93092a9364.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>To do list</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header_nav">
+        <h1 class="header_nav_header">Todo List</h1>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <aside class="sidebar">
+        <button class="main-button" href="#">All Tasks</button>
+        <div class="sidebar_projects">
+          <!--           <a class="sidebar_projects_button" href="#"
+            ><span>My Project</span>
+            <i class="fas fa-times sidebar_projects_button-icon"></i
+          ></a>  -->
+          <!--           <div class="sidebar_projects_new">
+            <input
+              class="sidebar_projects_new_input"
+              type="text"
+              name=""
+              id=""
+            />
+            <div class="sidebar_projects_new_buttons">
+              <button
+                class="sidebar_projects_new_btn sidebar_projects_new_btn-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                class="sidebar_projects_new_btn sidebar_projects_new_btn-add"
+              >
+                Add
+              </button>
+            </div>
+          </div> -->
+        </div>
+        <button class="add_btn add_btn-project">
+          <i class="fas fa-plus add_btn-icon"></i> <span>New Project</span>
+        </button>
+      </aside>
+      <section class="main">
+        <div class="main_header">
+          <h2 class="main_h2"></h2>
+          <button class="add_btn add_btn-task">
+            <i class="fas fa-plus add_btn-icon"></i>New Task
+          </button>
+        </div>
+        <div class="todolist"></div>
+      </section>
+    </div>
+
+    <div class="form">
+      <div class="form_container">
+        <button class="form_button-cancel">
+          <i class="fas fa-times"></i>
+        </button>
+        <input
+          class="form_input form_input-text"
+          type="text"
+          placeholder="Title..."
+          required
+        />
+        <textarea
+          class="form_input form_input-textarea"
+          name=""
+          placeholder="Description..."
+          cols="30"
+          rows="10"
+        ></textarea>
+        <div class="form_selects">
+          <label class="form_select_text" for="priorty-select"
+            >Priority:
+            <select class="form_select" name="priorty">
+              <option class="form_select-option" value="low">Low</option>
+              <option class="form_select-option" value="med">Medium</option>
+              <option class="form_select-option" value="high">High</option>
+            </select>
+          </label>
+
+          <label class="form_select_text" for="priorty-select"
+            >Due date:
+            <input class="form_date" type="date" />
+          </label>
+        </div>
+
+        <button class="form_button-add add_btn">Add</button>
+      </div>
+    </div>
+  </body>
+</html>

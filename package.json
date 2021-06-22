@@ -1,0 +1,39 @@
+{
+  "name": "todo_project",
+  "version": "1.0.0",
+  "description": "Improved todo project",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack",
+    "watch": "webpack -w",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BerkeGvn/todo_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BerkeGvn/todo_project/issues"
+  },
+  "homepage": "https://github.com/BerkeGvn/todo_project#readme",
+  "devDependencies": {
+    "css-loader": "^5.2.6",
+    "css-minimizer-webpack-plugin": "^3.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "node-sass": "^6.0.0",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "assert-js": "^1.0.0",
+    "date-fns": "^2.22.1",
+    "util": "^0.12.4"
+  }
+}
