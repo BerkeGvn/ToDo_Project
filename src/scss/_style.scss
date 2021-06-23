@@ -186,6 +186,7 @@
 .main {
   font-size: 2rem;
   color: rgb(56, 56, 56);
+  min-height: 85vh;
   &_header {
     margin-top: 2rem;
     margin-left: 4rem;
@@ -279,6 +280,7 @@
     border-radius: 10px;
     justify-content: space-around;
     background-color: #87af99;
+    margin: 0 1rem;
     position: relative;
   }
   &_input {
@@ -356,7 +358,7 @@
   margin: 5px auto;
   cursor: pointer;
   border-radius: 5px;
-  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   background-color: #e6e1e1;
 }
