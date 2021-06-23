@@ -1,19 +1,22 @@
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { toDoFactory, projectFactory, projectList } from "./todo";
 import { cardRender, projectRender } from "./render";
 import localMemory from "./localStorage";
 
 const currentProject = (() => {
   let current = 0;
+
   function getCurrent() {
     return current;
   }
+
   function setCurrent(value) {
     return (current = value);
   }
+
   return { getCurrent, setCurrent };
 })();
-let currenttask = 0;
+
 let formModule = (() => {
   let newTaskBtn = document.querySelector(".add_btn-task");
   let formCancelBtn = document.querySelector(".form_button-cancel");
@@ -37,16 +40,28 @@ let formModule = (() => {
     let title = formTitleInput.value;
     let texInput = formTextInput.value;
     let priority = prioritySelect.value;
-    let acs = new Date(datePick.value);
+    let dueDate = "";
 
-    let dueDate = format(acs, "dd/MMM/yyyy");
+    if (mainFunctions.checkInputText(title, "title")) {
+      return;
+    }
+
+    if (datePick.value !== "") {
+      let date = new Date(datePick.value);
+      dueDate = formatDistanceToNow(new Date(date), { addSuffix: true });
+    }
+
     formTitleInput.value = "";
     formTextInput.value = "";
+
     let todo = toDoFactory(title, texInput, false, priority, dueDate);
+
     projectList[currentProject.getCurrent()].list.push(todo);
+
     localMemory.pushLocalStorage();
     cardRender();
     projectRender();
+
     let form = document.querySelector(".form");
     form.style.display = "none";
   }
@@ -91,6 +106,7 @@ let todoCard = (() => {
     editBtnIcon.className = "far fa-edit";
 
     let dueDate = document.createElement("p");
+    dueDate.classList.add("card_date");
     dueDate.textContent = cards.date;
 
     let priority = document.createElement("div");
@@ -115,7 +131,7 @@ let todoCard = (() => {
     AddCard(card);
 
     if (status === "main") {
-      mainFunctions.allTaskDeleteBtn(delBtn, cards);
+      mainFunctions.allTaskDeleteBtn(delBtn, cards, i);
     } else {
       mainFunctions.deleteBtn(delBtn, cards);
     }
@@ -137,23 +153,26 @@ const mainFunctions = (() => {
         projectList[currentProject.getCurrent()].list.indexOf(item),
         1
       );
-      /*       console.log(currentProject.getCurrent()); */
-      localMemory.pushLocalStorage();
 
+      localMemory.pushLocalStorage();
+      cardRender();
+    });
+  }
+
+  function allTaskDeleteBtn(btn, item, index) {
+    btn.addEventListener("click", function () {
+      projectList[index].list.splice(projectList[index].list.indexOf(item), 1);
+
+      localMemory.pushLocalStorage();
       cardRender();
       allrender();
     });
   }
-  function allTaskDeleteBtn(btn, cards) {
-    currentProject.setCurrent(btn.getAttribute("id"));
-    console.log(btn.getAttribute("id"));
-    mainFunctions.deleteBtn(btn, cards);
-  }
 
   function doneBtn(btn, item, list) {
     btn.addEventListener("click", function () {
-      item.classList.add("done");
-      list.isDone = true;
+      item.classList.toggle("done");
+      list.isDone = list.isDone ? false : true;
       localMemory.pushLocalStorage();
     });
   }
@@ -180,11 +199,21 @@ const mainFunctions = (() => {
     }
   }
 
+  function checkInputText(text, type) {
+    if (text === "") {
+      alert(`Please enter a ${type}`);
+
+      return true;
+    }
+    return false;
+  }
+
   function createHeader(text) {
     const header = document.querySelector(".main_h2");
 
     header.innerText = text;
   }
+
   return {
     deleteBtn,
     allTaskDeleteBtn,
@@ -192,6 +221,7 @@ const mainFunctions = (() => {
     checkIsDone,
     chechPriority,
     createHeader,
+    checkInputText,
   };
 })();
 
@@ -218,8 +248,7 @@ let newProjectModule = (() => {
 
     let addBtn = document.createElement("button");
     addBtn.textContent = "Add";
-    cancelBtn.className =
-      "sidebar_projects_new_btn sidebar_projects_new_btn-cancel";
+    cancelBtn.className = "sidebar_projects_new_btn sidebar_projects_new_btn-cancel";
     addBtn.className = "sidebar_projects_new_btn sidebar_projects_new_btn-add";
     newProjectBtn.style.display = "none";
 
@@ -243,6 +272,9 @@ let newProjectModule = (() => {
   function add() {
     let newProjetInput = document.querySelector(".sidebar_projects_new_input");
     let newProject = newProjetInput.value;
+    if (mainFunctions.checkInputText(newProject, "name")) {
+      return;
+    }
     let project = projectFactory(newProject);
     projectList.push(project);
     localMemory.pushLocalStorage();
@@ -320,8 +352,10 @@ const allTasks = (() => {
 function allrender() {
   let todoList = document.querySelector(".todolist");
   let cards = document.querySelectorAll(".card");
+
   cards.forEach((card) => todoList.removeChild(card));
   mainFunctions.createHeader("All Tasks");
+
   for (let i = 0; i < projectList.length; i++) {
     projectList[i].list.forEach((val) => todoCard.createCard(val, i, "main"));
   }
@@ -338,11 +372,4 @@ let hamburgerModule = (() => {
   return { hamburger, mobileMenu };
 })();
 
-export {
-  formModule,
-  newProjectModule,
-  todoCard,
-  currentProject,
-  allTasks,
-  hamburgerModule,
-};
+export { formModule, newProjectModule, todoCard, currentProject, allTasks, hamburgerModule };

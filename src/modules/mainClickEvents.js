@@ -9,14 +9,9 @@ export default function events() {
 
   allTasks.mainBtn.addEventListener("click", allTasks.tasks);
 
-  newProjectModule.newProjectBtn.addEventListener(
-    "click",
-    newProjectModule.newProject
-  );
+  newProjectModule.newProjectBtn.addEventListener("click", newProjectModule.newProject);
 
-  hamburgerModule.hamburger.addEventListener(
-    "click",
-    hamburgerModule.mobileMenu
-  );
+  hamburgerModule.hamburger.addEventListener("click", hamburgerModule.mobileMenu);
+
   document.addEventListener("DOMContentLoaded", allTasks.tasks);
 }

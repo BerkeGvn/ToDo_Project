@@ -238,7 +238,7 @@
     }
   }
   @media only screen and (max-width: 78.12em) {
-    width: 30%;
+    width: 27%;
   }
   @media only screen and (max-width: 46.87em) {
     width: 40%;
@@ -268,7 +268,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
+  display: none;
   &_container {
     display: flex;
     flex-direction: column;
